@@ -1,27 +1,16 @@
 const productResolvers = {
   Query: {
-    allDrivers: async (parent, args, context, info) => {
-      const { fetchDriver, fetchDriverLocation } = context
-      const fetchData: any = await fetchDriver()
-      let driver: any = fetchData.allDrivers
-      const fetchLocation: any = await fetchDriverLocation()
-      const driverLocations = fetchLocation.getDriverLocations
+    products: async (parent, args, context, info) => {
+      const { fetchProducts } = context
 
-      const functionzx = (driverId) => {
-        if (driverLocations === null) {
-          return undefined
-        }
+      return fetchProducts
+    },
+  },
 
-        const filteredLoc = driverLocations.filter(
-          (loc) => loc.driverId == driverId,
-        )
-
-        return filteredLoc[filteredLoc.length - 1] || {}
-      }
-      return driver.map((i) => {
-        const location = functionzx(i.id)
-        return {}
-      })
+  Mutation: {
+    createProduct: async (_, { input }, context) => {
+      const { createProduct } = context
+      return createProduct(input)
     },
   },
 }

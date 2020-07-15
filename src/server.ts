@@ -3,7 +3,7 @@ import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
 import { resolvers, typeDefs } from './graphql'
 
-import { fetchProducts } from './helper'
+import { fetchProducts, createProduct } from './helper'
 
 const { authURI, PORT, EPOD_API_URI } = process.env
 
@@ -14,6 +14,8 @@ const startServer = async () => {
     context: async (session) => ({
       fetchProducts: async () =>
         fetchProducts(session.req.headers.authorization),
+      createProduct: async () =>
+        createProduct(session.req.headers.authorization),
     }),
   })
   const app = express()
