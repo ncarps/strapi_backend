@@ -12,11 +12,37 @@ export const fetchProducts = async (header) => {
   const operation = {
     query: gql`
       query {
-        allDrivers {
+        products {
           id
+          created_at
+          updated_at
           name
-          plateNumber
-          porter
+          description
+          amount
+          productCode
+          quantity
+          Image {
+            id
+            created_at
+            updated_at
+            name
+            caption
+            alternativeText
+            width
+            height
+            formats
+            hash
+            ext
+            mime
+            size
+            url
+            provider
+            previewUrl
+            provider_metadata
+            related {
+              __typename
+            }
+          }
         }
       }
     `,
