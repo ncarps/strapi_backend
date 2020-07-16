@@ -19,7 +19,7 @@ const startServer = async () => {
     }),
   })
   const app = express()
-  const port = PORT || 5000
+  const port = PORT || 5003
   server.applyMiddleware({ app })
 
   app.listen({ port: port }, () =>

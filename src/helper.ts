@@ -67,36 +67,38 @@ export const createProduct = (header) => async (product) => {
   const link = new HttpLink({ uri })
 
   const mutateProduct = gql`
-    mutation a($product: createProductInput) {
-      createProduct(product: $product) {
-        id
-        created_at
-        updated_at
-        name
-        description
-        amount
-        productCode
-        quantity
-        Image {
+    mutation a($input: createProductInput) {
+      createProduct(input: $input) {
+        product {
           id
           created_at
           updated_at
           name
-          caption
-          alternativeText
-          width
-          height
-          formats
-          hash
-          ext
-          mime
-          size
-          url
-          provider
-          previewUrl
-          provider_metadata
-          related {
-            __typename
+          description
+          amount
+          productCode
+          quantity
+          Image {
+            id
+            created_at
+            updated_at
+            name
+            caption
+            alternativeText
+            width
+            height
+            formats
+            hash
+            ext
+            mime
+            size
+            url
+            provider
+            previewUrl
+            provider_metadata
+            related {
+              __typename
+            }
           }
         }
       }
@@ -105,7 +107,7 @@ export const createProduct = (header) => async (product) => {
 
   const operation = {
     query: mutateProduct,
-    variables: { product: product },
+    variables: { input: product },
     context: {
       headers: {
         //Den auth
@@ -115,9 +117,9 @@ export const createProduct = (header) => async (product) => {
       },
     },
   }
-
   const result: any = await makePromise(execute(link, operation))
     .then((data) => data)
     .catch((error) => error)
-  return result.data || result.error
+
+  return result
 }

@@ -2,15 +2,21 @@ const productResolvers = {
   Query: {
     products: async (parent, args, context, info) => {
       const { fetchProducts } = context
-
-      return fetchProducts
+      console.log('fetch', await fetchProducts())
+      const products = await fetchProducts()
+      return products.products
     },
   },
 
   Mutation: {
     createProduct: async (_, { input }, context) => {
       const { createProduct } = context
-      return createProduct(input)
+      const callCreateProducts = await createProduct()
+      const newCreateProducts = await callCreateProducts(input)
+      if (newCreateProducts.errors) {
+        throw new Error('Product Code is already exists')
+      }
+      return await newCreateProducts.data.createProduct
     },
   },
 }
