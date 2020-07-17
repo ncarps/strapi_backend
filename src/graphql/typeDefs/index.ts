@@ -1,8 +1,8 @@
 import { mergeTypeDefs } from '@graphql-tools/merge'
 
-import product from './Product'
-
-const typeDefs = [product]
+import product from './product'
+import orders from './order'
+const typeDefs = [product, orders]
 
 // NOTE: 2nd param is optional, and defaults to false
 // Only use if you have defined the same type multiple times in

@@ -1,7 +1,8 @@
 import { mergeResolvers } from '@graphql-tools/merge'
 
-import product from './Product'
+import product from './product'
+import orders from './order'
 
-const resolvers: any[] = [product]
+const resolvers: any[] = [product, orders]
 
 export default mergeResolvers(resolvers)

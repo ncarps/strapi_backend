@@ -36,20 +36,47 @@ const producttypeDefs = gql`
     product: Product
   }
 
+  type ProductBasicDataPayload {
+    product: Product
+  }
+
   type Query {
     products: [Product]
   }
 
   type Mutation {
+    # Product
     createProduct(input: createProductInput): createProductPayload
+    updateProduct(input: updateProductInput): ProductBasicDataPayload
+    deleteProduct(input: deleteProductInput): ProductBasicDataPayload
   }
 
   input createProductInput {
     data: ProductInput
   }
 
+  input InputID {
+    id: ID!
+  }
+
   input ProductInput {
     name: String!
+    description: String
+    amount: String
+    productCode: String
+    quantity: String
+    Image: ID
+  }
+
+  input deleteProductInput {
+    where: InputID
+  }
+  input updateProductInput {
+    where: InputID
+    data: editProductInput
+  }
+  input editProductInput {
+    name: String
     description: String
     amount: String
     productCode: String
