@@ -31,17 +31,6 @@ const producttypeDefs = gql`
     previewUrl: String
     provider: String
   }
-  type Orders {
-    id: ID!
-    created_at: DateTime!
-    updated_at: DateTime!
-    orderNumber: String!
-    Recipient: String
-    products: [Product]
-  }
-  type createOrderPayload {
-    order: Orders
-  }
 
   type createProductPayload {
     product: Product
@@ -60,9 +49,6 @@ const producttypeDefs = gql`
     createProduct(input: createProductInput): createProductPayload
     updateProduct(input: updateProductInput): ProductBasicDataPayload
     deleteProduct(input: deleteProductInput): ProductBasicDataPayload
-
-    # Orders
-    createOrder(input: createOrderInput): createOrderPayload
   }
 
   input createProductInput {
@@ -96,17 +82,6 @@ const producttypeDefs = gql`
     productCode: String
     quantity: String
     Image: ID
-  }
-
-  # input Order
-  input createOrderInput {
-    data: OrderInput
-  }
-
-  input OrderInput {
-    orderNumber: String!
-    Recipient: String
-    products: [ID]
   }
 `
 

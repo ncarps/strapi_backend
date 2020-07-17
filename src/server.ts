@@ -8,6 +8,10 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
+  fetchOrders,
+  createOrder,
+  updateOrder,
+  deleteOrder,
 } from './helper'
 
 const { authURI, PORT, EPOD_API_URI } = process.env
@@ -25,6 +29,10 @@ const startServer = async () => {
         updateProduct(session.req.headers.authorization),
       deleteProduct: async () =>
         deleteProduct(session.req.headers.authorization),
+      fetchOrders: async () => fetchOrders(session.req.headers.authorization),
+      createOrder: async () => createOrder(session.req.headers.authorization),
+      updateOrder: async () => updateOrder(session.req.headers.authorization),
+      deleteOrder: async () => deleteOrder(session.req.headers.authorization),
     }),
   })
   const app = express()
