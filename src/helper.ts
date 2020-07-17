@@ -123,3 +123,198 @@ export const createProduct = (header) => async (product) => {
 
   return result
 }
+
+export const updateProduct = (header) => async (product) => {
+  const uri = EPOD_API_URI || 'http://localhost:1337/playground'
+
+  const link = new HttpLink({ uri })
+
+  const mutateUpdateProduct = gql`
+    mutation a($input: updateProductInput) {
+      updateProduct(input: $input) {
+        product {
+          id
+          created_at
+          updated_at
+          name
+          description
+          amount
+          productCode
+          quantity
+          Image {
+            id
+            created_at
+            updated_at
+            name
+            caption
+            alternativeText
+            width
+            height
+            formats
+            hash
+            ext
+            mime
+            size
+            url
+            provider
+            previewUrl
+            provider_metadata
+            related {
+              __typename
+            }
+          }
+        }
+      }
+    }
+  `
+
+  const operation = {
+    query: mutateUpdateProduct,
+    variables: { input: product },
+    context: {
+      headers: {
+        //Den auth
+        Authorization: header,
+        //Mark auth
+        //Authorization: "Basic bWFyazoxMjM=",
+      },
+    },
+  }
+  console.log('pro', product)
+  const result: any = await makePromise(execute(link, operation))
+    .then((data) => data)
+    .catch((error) => error)
+
+  return result
+}
+
+export const deleteProduct = (header) => async (product) => {
+  const uri = EPOD_API_URI || 'http://localhost:1337/playground'
+
+  const link = new HttpLink({ uri })
+
+  const mutateDeleteProduct = gql`
+    mutation a($input: deleteProductInput) {
+      deleteProduct(input: $input) {
+        product {
+          id
+          created_at
+          updated_at
+          name
+          description
+          amount
+          productCode
+          quantity
+          Image {
+            id
+            created_at
+            updated_at
+            name
+            caption
+            alternativeText
+            width
+            height
+            formats
+            hash
+            ext
+            mime
+            size
+            url
+            provider
+            previewUrl
+            provider_metadata
+            related {
+              __typename
+            }
+          }
+        }
+      }
+    }
+  `
+
+  const operation = {
+    query: mutateDeleteProduct,
+    variables: { input: product },
+    context: {
+      headers: {
+        //Den auth
+        Authorization: header,
+        //Mark auth
+        //Authorization: "Basic bWFyazoxMjM=",
+      },
+    },
+  }
+  console.log('pro', product)
+  const result: any = await makePromise(execute(link, operation))
+    .then((data) => data)
+    .catch((error) => error)
+
+  return result
+}
+export const createOrder = (header) => async (order) => {
+  const uri = EPOD_API_URI || 'http://localhost:1337/playground'
+
+  const link = new HttpLink({ uri })
+
+  const mutateOrder = gql`
+    mutation a($input: createOrderInput) {
+      createOrder(input: $input) {
+        order {
+          id
+          orderNumber
+          Recipient
+          products {
+            id
+            created_at
+            updated_at
+            name
+            description
+            amount
+            productCode
+            quantity
+            Image {
+              id
+              created_at
+              updated_at
+              name
+              alternativeText
+              caption
+              width
+              height
+              formats
+              hash
+              ext
+              mime
+              size
+              url
+              previewUrl
+              provider
+              provider_metadata
+              related {
+                __typename
+              }
+            }
+          }
+        }
+      }
+    }
+  `
+
+  const operation = {
+    query: mutateOrder,
+    variables: { input: order },
+    context: {
+      headers: {
+        //Den auth
+        Authorization: header,
+        //Mark auth
+        //Authorization: "Basic bWFyazoxMjM=",
+      },
+    },
+  }
+  const result: any = await makePromise(execute(link, operation))
+    .then((data) => data)
+    .catch((error) => error)
+
+  return result
+}

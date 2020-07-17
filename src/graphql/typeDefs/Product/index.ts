@@ -31,8 +31,23 @@ const producttypeDefs = gql`
     previewUrl: String
     provider: String
   }
+  type Orders {
+    id: ID!
+    created_at: DateTime!
+    updated_at: DateTime!
+    orderNumber: String!
+    Recipient: String
+    products: [Product]
+  }
+  type createOrderPayload {
+    order: Orders
+  }
 
   type createProductPayload {
+    product: Product
+  }
+
+  type ProductBasicDataPayload {
     product: Product
   }
 
@@ -41,11 +56,21 @@ const producttypeDefs = gql`
   }
 
   type Mutation {
+    # Product
     createProduct(input: createProductInput): createProductPayload
+    updateProduct(input: updateProductInput): ProductBasicDataPayload
+    deleteProduct(input: deleteProductInput): ProductBasicDataPayload
+
+    # Orders
+    createOrder(input: createOrderInput): createOrderPayload
   }
 
   input createProductInput {
     data: ProductInput
+  }
+
+  input InputID {
+    id: ID!
   }
 
   input ProductInput {
@@ -55,6 +80,33 @@ const producttypeDefs = gql`
     productCode: String
     quantity: String
     Image: ID
+  }
+
+  input deleteProductInput {
+    where: InputID
+  }
+  input updateProductInput {
+    where: InputID
+    data: editProductInput
+  }
+  input editProductInput {
+    name: String
+    description: String
+    amount: String
+    productCode: String
+    quantity: String
+    Image: ID
+  }
+
+  # input Order
+  input createOrderInput {
+    data: OrderInput
+  }
+
+  input OrderInput {
+    orderNumber: String!
+    Recipient: String
+    products: [ID]
   }
 `
 
