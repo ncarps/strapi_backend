@@ -5,10 +5,12 @@ import { resolvers, typeDefs } from './graphql'
 
 import {
   fetchProducts,
+  fetchOneProduct,
   createProduct,
   updateProduct,
   deleteProduct,
   fetchOrders,
+  fetchOneOrder,
   createOrder,
   updateOrder,
   deleteOrder,
@@ -23,6 +25,8 @@ const startServer = async () => {
     context: async (session) => ({
       fetchProducts: async () =>
         fetchProducts(session.req.headers.authorization),
+      fetchOneProduct: async () =>
+        fetchOneProduct(session.req.headers.authorization),
       createProduct: async () =>
         createProduct(session.req.headers.authorization),
       updateProduct: async () =>
@@ -30,6 +34,8 @@ const startServer = async () => {
       deleteProduct: async () =>
         deleteProduct(session.req.headers.authorization),
       fetchOrders: async () => fetchOrders(session.req.headers.authorization),
+      fetchOneOrder: async () =>
+        fetchOneOrder(session.req.headers.authorization),
       createOrder: async () => createOrder(session.req.headers.authorization),
       updateOrder: async () => updateOrder(session.req.headers.authorization),
       deleteOrder: async () => deleteOrder(session.req.headers.authorization),

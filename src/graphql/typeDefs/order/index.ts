@@ -6,7 +6,7 @@ const orderstypeDefs = gql`
     created_at: String
     updated_at: String
     orderNumber: String!
-    Recipient: String
+    receipientName: String
     products: [Product]
   }
   type createOrderPayload {
@@ -17,6 +17,7 @@ const orderstypeDefs = gql`
   }
   type Query {
     orders: [Order]
+    order(id: ID!): Order
   }
 
   type Mutation {
@@ -33,7 +34,7 @@ const orderstypeDefs = gql`
 
   input OrderInput {
     orderNumber: String!
-    Recipient: String
+    receipientName: String!
     products: [ID]
   }
 
@@ -43,7 +44,7 @@ const orderstypeDefs = gql`
   }
   input editOrderInput {
     orderNumber: String!
-    Recipient: String
+    receipientName: String
     products: [ID]
   }
   input deleteOrderInput {

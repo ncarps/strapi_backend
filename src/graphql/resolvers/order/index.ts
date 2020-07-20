@@ -6,6 +6,12 @@ const orderResolvers = {
       const orders = await fetchOrders()
       return orders.orders
     },
+    order: async (parent, { id }, context, info) => {
+      const { fetchOneOrder } = context
+      const order = await fetchOneOrder()
+      const getOrder = await order(id)
+      return await getOrder.order
+    },
   },
 
   Mutation: {
@@ -13,7 +19,9 @@ const orderResolvers = {
       const { createOrder } = context
       const callCreateOrders = await createOrder()
       const newCreateOrders = await callCreateOrders(input)
-      console.log('something', newCreateOrders)
+      if (newCreateOrders.errors) {
+        throw new Error('Order Number is already exists')
+      }
       return await newCreateOrders.data.createOrder
     },
 
