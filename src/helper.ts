@@ -61,6 +61,61 @@ export const fetchProducts = async (header) => {
   return result.data || result.error
 }
 
+export const fetchOneProduct = (header) => async (product) => {
+  const uri = EPOD_API_URI || 'http://localhost:1337/playground'
+  const link = new HttpLink({ uri })
+  const operation = {
+    query: gql`
+      query a($id: ID!) {
+        product(id: $id) {
+          id
+          created_at
+          updated_at
+          name
+          description
+          amount
+          productCode
+          quantity
+          Image {
+            id
+            created_at
+            updated_at
+            name
+            caption
+            alternativeText
+            width
+            height
+            formats
+            hash
+            ext
+            mime
+            size
+            url
+            provider
+            previewUrl
+            provider_metadata
+            related {
+              __typename
+            }
+          }
+        }
+      }
+    `,
+    variables: { id: product },
+    context: {
+      headers: {
+        Authorization: header,
+      },
+    },
+  }
+
+  const result: any = await makePromise(execute(link, operation))
+    .then((data) => data)
+    .catch((error) => error)
+
+  return result.data || result.error
+}
+
 export const createProduct = (header) => async (product) => {
   const uri = EPOD_API_URI || 'http://localhost:1337/playground'
 
@@ -260,10 +315,14 @@ export const fetchOrders = async (header) => {
       query {
         orders {
           id
+          created_at
+          updated_at
           orderNumber
-          Recipient
+          receipientName
           products {
             id
+            created_at
+            updated_at
             name
             description
             amount
@@ -309,6 +368,69 @@ export const fetchOrders = async (header) => {
 
   return result.data || result.error
 }
+
+export const fetchOneOrder = (header) => async (order) => {
+  const uri = EPOD_API_URI || 'http://localhost:1337/playground'
+  const link = new HttpLink({ uri })
+  const operation = {
+    query: gql`
+      query a($id: ID!) {
+        order(id: $id) {
+          id
+          created_at
+          updated_at
+          orderNumber
+          receipientName
+          products {
+            id
+            created_at
+            updated_at
+            name
+            description
+            amount
+            productCode
+            quantity
+            Image {
+              id
+              created_at
+              updated_at
+              name
+              alternativeText
+              caption
+              width
+              height
+              formats
+              hash
+              ext
+              mime
+              size
+              url
+              previewUrl
+              provider
+              provider_metadata
+              related {
+                __typename
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: { id: order },
+    context: {
+      headers: {
+        Authorization: header,
+      },
+    },
+  }
+
+  const result: any = await makePromise(execute(link, operation))
+    .then((data) => data)
+    .catch((error) => error)
+
+  return result.data || result.error
+}
+
 export const createOrder = (header) => async (order) => {
   const uri = EPOD_API_URI || 'http://localhost:1337/playground'
 
@@ -319,8 +441,10 @@ export const createOrder = (header) => async (order) => {
       createOrder(input: $input) {
         order {
           id
+          created_at
+          updated_at
           orderNumber
-          Recipient
+          receipientName
           products {
             id
             created_at
@@ -387,8 +511,10 @@ export const updateOrder = (header) => async (order) => {
       updateOrder(input: $input) {
         order {
           id
+          created_at
+          updated_at
           orderNumber
-          Recipient
+          receipientName
           products {
             id
             created_at
@@ -455,8 +581,10 @@ export const deleteOrder = (header) => async (order) => {
       deleteOrder(input: $input) {
         order {
           id
+          created_at
+          updated_at
           orderNumber
-          Recipient
+          receipientName
           products {
             id
             created_at

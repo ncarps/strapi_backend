@@ -4,7 +4,14 @@ const productResolvers = {
       const { fetchProducts } = context
       console.log('fetch', await fetchProducts())
       const products = await fetchProducts()
-      return products.products
+      return await products.products
+    },
+    product: async (parent, { id }, context, info) => {
+      const { fetchOneProduct } = context
+      const product = await fetchOneProduct()
+      const getProduct = await product(id)
+      console.log('something', getProduct)
+      return await getProduct.product
     },
   },
 
