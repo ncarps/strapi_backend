@@ -5,7 +5,16 @@ import { constructTestServer } from './__utils'
 const { server }: any = constructTestServer({
   context: {
     createProduct: jest.fn(() => async (product) => {
-      return { createProduct: { id: '1' } }
+      return {
+        data: {
+          createProduct: {
+            product: {
+              id: '1',
+              ...product.data,
+            },
+          },
+        },
+      }
     }),
   },
 })
@@ -24,23 +33,6 @@ describe('Queries', () => {
             amount
             productCode
             quantity
-            Image {
-              id
-              created_at
-              updated_at
-              name
-              caption
-              alternativeText
-              width
-              height
-              hash
-              ext
-              mime
-              size
-              url
-              provider
-              previewUrl
-            }
           }
         }
       }
@@ -57,7 +49,6 @@ describe('Queries', () => {
             amount: '123',
             productCode: '420',
             quantity: '100',
-            Image: '1',
           },
         },
       },
@@ -66,13 +57,14 @@ describe('Queries', () => {
     expect(res.errors).toBeUndefined()
     expect(res.data).toMatchObject({
       createProduct: {
-        id: '1',
-        name: 'HOTDOG',
-        description: 'Hotdog numbawan',
-        amount: '123',
-        productCode: '420',
-        quantity: '100',
-        Image: '1',
+        product: {
+          id: '1',
+          name: 'HOTDOG',
+          description: 'Hotdog numbawan',
+          amount: '123',
+          productCode: '420',
+          quantity: '100',
+        },
       },
     })
     expect(res).toMatchSnapshot()

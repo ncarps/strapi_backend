@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Queries create a product 1`] = `
+Object {
+  "data": Object {
+    "createProduct": Object {
+      "product": Object {
+        "amount": "123",
+        "created_at": null,
+        "description": "Hotdog numbawan",
+        "id": "1",
+        "name": "HOTDOG",
+        "productCode": "420",
+        "quantity": "100",
+        "updated_at": null,
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
