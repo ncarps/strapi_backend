@@ -25,3 +25,56 @@ Object {
   },
 }
 `;
+
+exports[`Queries delete a product 1`] = `
+Object {
+  "data": Object {
+    "deleteProduct": Object {
+      "product": Object {
+        "Image": null,
+        "amount": null,
+        "created_at": null,
+        "description": null,
+        "id": "1",
+        "name": null,
+        "productCode": null,
+        "quantity": null,
+        "updated_at": null,
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Queries update a product 1`] = `
+Object {
+  "data": Object {
+    "createProduct": Object {
+      "product": Object {
+        "amount": "123",
+        "created_at": null,
+        "description": "Hotdog numbawan",
+        "id": "1",
+        "name": "HOTDOG",
+        "productCode": "420",
+        "quantity": "100",
+        "updated_at": null,
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
