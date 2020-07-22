@@ -23,7 +23,11 @@ const { server }: any = constructTestServer({
           deleteProduct: {
             product: {
               id: '1',
-              ...product.data,
+              amount: '100',
+              description: 'Delete Product',
+              name: 'Jonas',
+              productCode: '420',
+              quantity: '1003',
             },
           },
         },
@@ -36,6 +40,59 @@ const { server }: any = constructTestServer({
             product: {
               id: '1',
               ...product.data,
+            },
+          },
+        },
+      }
+    }),
+    createOrder: jest.fn(() => async (order) => {
+      return {
+        data: {
+          createOrder: {
+            order: {
+              id: '1',
+              ...order.data,
+              products: [
+                {
+                  id: '1',
+                  name: 'Mirana',
+                  description: 'Jumong',
+                  amount: '100',
+                  productCode: 'QWE123',
+                  quantity: '1000',
+                },
+                {
+                  id: '2',
+                  name: 'Rubick',
+                  description: 'Telekinesis',
+                  amount: '1000',
+                  productCode: '42069',
+                  quantity: '10001',
+                },
+              ],
+            },
+          },
+        },
+      }
+    }),
+
+    updateOrder: jest.fn(() => async (order) => {
+      return {
+        data: {
+          updateOrder: {
+            order: {
+              id: '1',
+              ...order.data,
+              products: [
+                {
+                  id: '1',
+                  name: 'Mirana',
+                  description: 'Jumong',
+                  amount: '100',
+                  productCode: 'QWE123',
+                  quantity: '1000',
+                },
+              ],
             },
           },
         },
@@ -139,30 +196,11 @@ describe('Queries', () => {
         deleteProduct(input: $input) {
           product {
             id
-            created_at
-            updated_at
             name
             description
             amount
             productCode
             quantity
-            Image {
-              id
-              created_at
-              updated_at
-              name
-              caption
-              alternativeText
-              width
-              height
-              hash
-              ext
-              mime
-              size
-              url
-              provider
-              previewUrl
-            }
           }
         }
       }
@@ -180,6 +218,92 @@ describe('Queries', () => {
       },
     })
 
+    expect(res).toMatchSnapshot()
+  })
+
+  it('create a order', async () => {
+    const CREATE_ORDER = gql`
+      mutation a($input: createOrderInput) {
+        createOrder(input: $input) {
+          order {
+            id
+            created_at
+            updated_at
+            orderNumber
+            receipientName
+            products {
+              id
+              created_at
+              updated_at
+              name
+              description
+              amount
+              productCode
+              quantity
+            }
+          }
+        }
+      }
+    `
+
+    const { mutate } = createTestClient(server)
+    const res = await mutate({
+      mutation: CREATE_ORDER,
+      variables: {
+        input: {
+          data: {
+            orderNumber: '42069',
+            receipientName: 'Gavin Salcedo',
+            products: ['1', '2'],
+          },
+        },
+      },
+    })
+
+    expect(res).toMatchSnapshot()
+  })
+
+  it('Update a order', async () => {
+    const UPDATE_ORDER = gql`
+      mutation updateOrder($input: updateOrderInput) {
+        updateOrder(input: $input) {
+          order {
+            id
+            created_at
+            updated_at
+            orderNumber
+            receipientName
+            products {
+              id
+              created_at
+              updated_at
+              name
+              description
+              amount
+              productCode
+              quantity
+            }
+          }
+        }
+      }
+    `
+
+    const { mutate } = createTestClient(server)
+    const res = await mutate({
+      mutation: UPDATE_ORDER,
+      variables: {
+        input: {
+          where: {
+            id: '1',
+          },
+          data: {
+            orderNumber: '420699',
+            receipientName: 'Nastzzz',
+            products: ['1'],
+          },
+        },
+      },
+    })
     expect(res).toMatchSnapshot()
   })
 })
