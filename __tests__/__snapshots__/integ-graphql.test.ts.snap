@@ -1,5 +1,85 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Queries Update a order 1`] = `
+Object {
+  "data": Object {
+    "updateOrder": Object {
+      "order": Object {
+        "created_at": null,
+        "id": "1",
+        "orderNumber": "420699",
+        "products": Array [
+          Object {
+            "amount": "100",
+            "created_at": null,
+            "description": "Jumong",
+            "id": "1",
+            "name": "Mirana",
+            "productCode": "QWE123",
+            "quantity": "1000",
+            "updated_at": null,
+          },
+        ],
+        "receipientName": "Nastzzz",
+        "updated_at": null,
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
+exports[`Queries create a order 1`] = `
+Object {
+  "data": Object {
+    "createOrder": Object {
+      "order": Object {
+        "created_at": null,
+        "id": "1",
+        "orderNumber": "42069",
+        "products": Array [
+          Object {
+            "amount": "100",
+            "created_at": null,
+            "description": "Jumong",
+            "id": "1",
+            "name": "Mirana",
+            "productCode": "QWE123",
+            "quantity": "1000",
+            "updated_at": null,
+          },
+          Object {
+            "amount": "1000",
+            "created_at": null,
+            "description": "Telekinesis",
+            "id": "2",
+            "name": "Rubick",
+            "productCode": "42069",
+            "quantity": "10001",
+            "updated_at": null,
+          },
+        ],
+        "receipientName": "Gavin Salcedo",
+        "updated_at": null,
+      },
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
+
 exports[`Queries create a product 1`] = `
 Object {
   "data": Object {
@@ -31,15 +111,12 @@ Object {
   "data": Object {
     "deleteProduct": Object {
       "product": Object {
-        "Image": null,
-        "amount": null,
-        "created_at": null,
-        "description": null,
+        "amount": "100",
+        "description": "Delete Product",
         "id": "1",
-        "name": null,
-        "productCode": null,
-        "quantity": null,
-        "updated_at": null,
+        "name": "Jonas",
+        "productCode": "420",
+        "quantity": "1003",
       },
     },
   },
