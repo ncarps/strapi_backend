@@ -1,7 +1,5 @@
 # List of GraphQL Endpoints
-
-### Playground url:
-
+To start the backend service, run ```yarn develop``` in a terminal, then visit the url:
 ```
 http://localhost:1337/graphql
 ```
